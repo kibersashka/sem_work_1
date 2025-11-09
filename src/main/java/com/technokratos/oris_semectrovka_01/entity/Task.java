@@ -1,6 +1,7 @@
 package com.technokratos.oris_semectrovka_01.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 public class Task {
     private Long id;
@@ -11,6 +12,26 @@ public class Task {
     private Date date_end;
     private Integer priority;
     private String  status;
+    private List<Attachments> attachments;
+    private List<Tag> tags;
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public List<Attachments> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachments> attachments) {
+        this.attachments = attachments;
+    }
+
+
 
     public Task() {
     }

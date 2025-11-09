@@ -1,0 +1,19 @@
+ <div class="stats-section fade-in delay-2">
+            <div class="stats-title">Статистика за день</div>
+            <div class="stat-item">
+                <span>Всего задач:</span>
+                <span class="stat-value">${totalTasks!0}</span>
+            </div>
+            <div class="stat-item">
+                <span>Выполнено:</span>
+                <span class="stat-value">${completedTasks!0}</span>
+            </div>
+            <div class="stat-item">
+                <span>Осталось:</span>
+                <span class="stat-value">${remainingTasks!0}</span>
+            </div>
+            <div class="stat-item">
+                <span>С вложениями:</span>
+                <span class="stat-value">${tasksWithAttachments!0}</span>
+            </div>
+        </div>

@@ -42,6 +42,7 @@ public class UserDAOImpl implements UserDAO {
         Long id = null;
         if(resultSet.next()) {
             id = resultSet.getLong("id");
+            user.setId(id);
         }
         if(id != null) {
             user.setId(id);
@@ -81,6 +82,7 @@ public class UserDAOImpl implements UserDAO {
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getEmail());
         preparedStatement.setString(4, user.getLogin());
+        System.out.println(preparedStatement);
 
 
         int resultSet = preparedStatement.executeUpdate();
@@ -92,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
 
         return resultSet > 0;
     }
-
+/*
     @Override
     public void delete(User user) throws SQLException {
         String sql = "delete from users where login = ? and password = ?";
@@ -107,8 +109,9 @@ public class UserDAOImpl implements UserDAO {
         preparedStatement.close();
         connection.commit();
         connection.close();
-
     }
+
+ */
 
     @Override
     public Optional<User> find(User user) throws SQLException {
@@ -184,6 +187,57 @@ public class UserDAOImpl implements UserDAO {
         preparedStatement.setString(3, user.getPassword());
         preparedStatement.setString(4, user.getName());
         preparedStatement.setString(5, user.getEmail());
+    }
+
+    public void delete(Long user_id) throws SQLException {
+        String sql = "delete from users where id = ?";
+        String sql1 = "delete from task where users_id = ?";
+        String sql2 = "delete from attachment where user_id = ?";
+
+
+        Connection connection = DBConnection.getConnection();
+        connection.setAutoCommit(false);
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql1);
+        preparedStatement.setLong(1, user_id);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+
+        preparedStatement = connection.prepareStatement(sql2);
+        preparedStatement.setLong(1, user_id);
+        preparedStatement.executeUpdate();
+
+
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1, user_id);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+
+
+
+        preparedStatement.close();
+        connection.commit();
+        connection.close();
+    }
+
+    public Optional<User> findById(Long user_id) throws SQLException {
+        String sql = "select * from users where id = ?";
+        Connection connection = DBConnection.getConnection();
+        connection.setAutoCommit(false);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1, user_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()) {
+            User userEntity = new User();
+            userEntity.setId(resultSet.getLong("id"));
+            userEntity.setLogin(resultSet.getString("login"));
+            userEntity.setName(resultSet.getString("name"));
+            userEntity.setEmail(resultSet.getString("email"));
+            return Optional.of(userEntity);
+        }
+        connection.commit();
+        connection.close();
+        return  Optional.empty();
     }
 
 

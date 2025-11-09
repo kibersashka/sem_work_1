@@ -1,9 +1,30 @@
 package com.technokratos.oris_semectrovka_01.entity;
 
+import java.util.List;
+
 public class Attachments {
     private Long id;
     private String url;
     private String title;
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public String getTypeFile() {
+        return typeFile;
+    }
+
+    public void setTypeFile(String typeFile) {
+        this.typeFile = typeFile;
+    }
+
+    private String typeFile;
 
     public  Attachments() {}
 

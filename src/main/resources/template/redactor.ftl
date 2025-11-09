@@ -3,30 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Изменение страинцы</title>
+    <title>Изменение страницы</title>
+    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/task.css">
 </head>
 <body>
 
-<form action="/oris_semectrovka_01_war_exploded/registration" method="post">
+<div class="container">
+    <form action="/oris_semectrovka_01_war_exploded/index" method="post">
+        <h2>Изменение пользователя</h2>
 
-    <h2>Изменение пользователя</h2>
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
 
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
 
-    <div>
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <button type="submit" class="btn">Готово</button>
+    </form>
+
+    <div class="back-link">
+        <p>Вернуться обратно?</p>
+        <a href="index" class="back-btn">На главную</a>
     </div>
-
-    <div>
-        <label for="name">Имя:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-
-    <input type="submit" value="Готово">
-    <a href="index">Вернуться обратно</a>
-</form>
+</div>
+</body>
+</html>

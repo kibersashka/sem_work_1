@@ -25,7 +25,8 @@ public class LoginFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
         if (! checkE(((HttpServletRequest) request).getServletPath()) && (session == null ||
-                session.getAttribute("user") == null)) {
+                session.getAttribute("login") == null)) {
+            System.out.println();
 
             ((HttpServletResponse) response).sendRedirect("/oris_semectrovka_01_war_exploded/login");
 
@@ -40,6 +41,6 @@ public class LoginFilter implements Filter {
     }
 
     private boolean checkE (String res) {
-        return res.contains("/login") || res.contains("/usercheck") || res.contains("/registration");
+        return res.contains("/title-window") || res.contains("/login") || res.contains("/registration") || res.contains("/usercheck") || res.contains("/css") ;
     }
 }
