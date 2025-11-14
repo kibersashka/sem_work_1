@@ -18,32 +18,29 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
-    public User registrationUser(HttpServletRequest request) {
-        User user = new User();
-        user.setLogin(request.getParameter("login"));
-        user.setPassword(request.getParameter("password"));
-        user.setName(request.getParameter("name"));
-        user.setEmail(request.getParameter("email"));
+    public Optional<User> registrationUser(User user) {
+
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         try {
-            userDAO.save(user);
-            request.getSession().setAttribute("id", user.getId());
+            if (userDAO.findBuLogin(user).isEmpty()) {
+                System.out.println("User not found");
+                userDAO.save(user);
+                return Optional.of(user);
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return user;
+        return Optional.empty();
     }
 
-    public boolean loginUser(HttpServletRequest request)  {
+    public boolean loginUser(User user)  {
         try {
-            User user = new User();
-            user.setLogin(request.getParameter("login"));
-            user.setPassword(request.getParameter("password"));
-            user.setName(request.getParameter("name"));
-            user.setEmail(request.getParameter("email"));
-            Optional<User> userDB = userDAO.find(user);
+
+            System.out.println(user);
+            Optional<User> userDB = userDAO.findBuLogin(user);
             System.out.println(userDB);
 
 
@@ -51,70 +48,42 @@ public class UserService {
 
                 String passwordIn = user.getPassword();
                 String hashedPassword = userDB.get().getPassword();
-                request.getSession().setAttribute("id", userDB.get().getId());
+                user.setId(userDB.get().getId());
 
                 return passwordEncoder.matches(passwordIn, hashedPassword);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return false;
     }
 
-    public void changeData(HttpServletRequest request, String login) {
-        User user = new User();
-        System.out.println("login" + login);
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(passwordEncoder.encode(request.getParameter("password")));
-        user.setName(request.getParameter("name"));
-        System.out.println(user.getName());
-        user.setLogin(login);
+    public String changeData(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userDAO.update(user);
+            return null;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return "Не удалось обновить данные!";
         }
     }
 
-    public List<Task> getAllask(HttpSession session) {
-        User user = new User();
-        user.setLogin((String) session.getAttribute("login"));
 
-        try {
-
-            return userDAO.findAllTaskForUser(user);
-
-        } catch (SQLException e) {
-
-            throw new RuntimeException(e);
-
-        }
-    }
-
-    public void delete(HttpServletRequest request) {
-        Long user_id = (Long) request.getSession().getAttribute("id");
+    public String delete(Long user_id) {
         try {
             userDAO.delete(user_id);
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
+            return null;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+           return "Не удалось удалить задачу!";
         }
-
     }
 
-    public Optional<User> getUser(HttpServletRequest request) {
-        Long user_id = (Long) request.getSession().getAttribute("id");
+    public Optional<User> getUser(Long user_id) {
         try {
             return userDAO.findById(user_id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return null;
         }
     }
-
-
 
 }

@@ -1,15 +1,21 @@
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавление задачи</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/task.css">
+    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/add-edit-task.css">
 </head>
 <body>
-
+<script>
+    <#if error??>
+    alert('${error}')
+    </#if>
+</script>
 <div class="container">
-    <form action="/oris_semectrovka_01_war_exploded/add-task" method="post" >
+    <form action="/oris_semectrovka_01_war_exploded/add-task" method="post" onsubmit="return validateForm()">
         <h2>Добавление задачи</h2>
 
         <div class="form-group">
@@ -46,15 +52,27 @@
                 <option value="done">Завершено</option>
             </select>
         </div>
+
+        <!-- Множественные теги -->
         <div class="form-group">
-            <label for="tag_id">Тег задачи:</label>
-            <select id="tag_id" name="tag_id[]" required>
-                <option value="">Выберите тег</option>
-                <option value="1">Дом</option>
-                <option value="2">Работа</option>
-                <option value="3">Учеба</option>
-            </select>
+            <label>Теги задачи :</label>
+            <div class="tags-container" id="tagsContainer">
+                <div class="tag-item">
+                    <select name="tag_id[]" class="tag-select">
+                        <option value="">Выберите тег</option>
+                        <option value="1">Дом</option>
+                        <option value="2">Работа</option>
+                        <option value="3">Учеба</option>
+                    </select>
+                    <span class="remove-tag" onclick="removeTag(this)">×</span>
+                </div>
+            </div>
+
+            <div class="add-tag-btn" onclick="addTag()" id="addTagBtn">
+                + Добавить еще тег
+            </div>
         </div>
+
         <!-- Вложения -->
         <div class="form-group">
             <label>Вложения (ссылки):</label>
@@ -85,26 +103,7 @@
         <a href="/oris_semectrovka_01_war_exploded/showtask" class="back-btn">К календарю</a>
     </div>
 </div>
-<script>
-    function addAttachment() {
-        const container = document.getElementById('attachmentsContainer');
-        const newAttachment = document.createElement('div');
-        newAttachment.className = 'attachment-item';
-        newAttachment.innerHTML = `
-            <input type="url" name="attachment_url[]" placeholder="https://example.com/document.pdf" class="attachment-input">
-            <input type="text" name="attachmentTitle[]" placeholder="Описание вложения" class="attachment-desc">
-            <span class="remove-attachment" onclick="removeAttachment(this)">×</span>
-        `;
-        container.appendChild(newAttachment);
-    }
-
-    function removeAttachment(element) {
-        const container = document.getElementById('attachmentsContainer');
-        if (container.children.length > 1) {
-            element.parentElement.remove();
-        }
-    }
-</script>
+<script src="/oris_semectrovka_01_war_exploded/static/js/task.js"></script>
 
 </body>
 </html>

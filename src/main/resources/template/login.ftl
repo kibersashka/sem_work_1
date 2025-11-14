@@ -1,11 +1,13 @@
+
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход в систему</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/task.css">
-
+    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/login-reg.css">
 
 </head>
 <body>
@@ -26,7 +28,11 @@
 
         <button type="submit" class="btn">Войти</button>
 
-        <div id="loginMessage" class="message">Неверный логин или пароль</div>
+        <script>
+            <#if error??>
+            alert('${error}')
+            </#if>
+        </script>
     </form>
 
     <div class="register-link">

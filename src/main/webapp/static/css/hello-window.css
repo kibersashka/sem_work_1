@@ -1,56 +1,46 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', 'Segoe UI', Roboto,
-    'Noto Sans', Ubuntu, sans-serif;
-    font-weight: 300;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+* {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
-    color: #5d5d5d;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    color: #5d6d7e;
+    padding: 20px;
 }
 
 .container {
     display: flex;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 30px;
     gap: 30px;
+    min-height: 100vh;
 }
 
-/* Левая колонка - задачи */
+/*задачи */
 .tasks-column {
     flex: 1;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(149, 157, 165, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
     padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .tasks-header {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', 'Segoe UI', serif;
-    font-size: 2.2rem;
-    font-weight: 600;
+    text-align: center;
+    font-weight: 500;
+    font-size: 26px;
+    margin-bottom: 30px;
     background: linear-gradient(135deg, #a8c0ff 0%, #3f4c6b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-}
-
-.date-display {
-    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', 'Segoe UI', sans-serif;
-    color: #7a7a7a;
-    font-size: 1.1rem;
-    margin-bottom: 30px;
 }
 
 .tasks-list {
@@ -60,36 +50,36 @@ body {
 }
 
 .task-item {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    border: none;
+    border: 1px solid rgba(200, 210, 220, 0.4);
 }
 
 .task-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .task-item.expanded {
-    background: #f8faff;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .task-title {
-    font-weight: 700;
-    font-size: 1.4rem;
+    font-weight: 600;
+    font-size: 1.3rem;
     margin-bottom: 12px;
-    color: #2c3e50;
+    color: #3f4c6b;
     line-height: 1.3;
 }
 
 .task-preview {
-    color: #7a7a7a;
-    font-size: 1.1rem;
+    color: #6c7b95;
+    font-size: 1rem;
     margin-bottom: 15px;
     line-height: 1.5;
 }
@@ -106,23 +96,23 @@ body {
 
 .task-description {
     padding: 20px 0;
-    border-top: 1px solid #eee;
-    color: #5d5d5d;
+    border-top: 1px solid rgba(200, 210, 220, 0.3);
+    color: #5d6d7e;
     line-height: 1.7;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
 }
 
 .attachments {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid rgba(200, 210, 220, 0.3);
 }
 
 .attachments-title {
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 15px;
     color: #3f4c6b;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .attachment-list {
@@ -133,7 +123,7 @@ body {
 
 .attachment-item {
     padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid rgba(200, 210, 220, 0.2);
 }
 
 .attachment-item:last-child {
@@ -147,29 +137,26 @@ body {
     padding: 8px 12px;
     border-radius: 8px;
     transition: all 0.2s ease;
-    font-size: 1.1rem;
     background: rgba(52, 152, 219, 0.1);
 }
 
 .attachment-item a:hover {
     color: #2980b9;
     background: rgba(52, 152, 219, 0.2);
-    transform: translateX(5px);
 }
 
 .no-attachments {
     color: #95a5a6;
     font-style: italic;
-    font-size: 1.1rem;
     padding: 10px 0;
 }
 
 .no-tasks {
     text-align: center;
     padding: 60px 20px;
-    color: #7a7a7a;
+    color: #6c7b95;
     font-style: italic;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .task-meta {
@@ -177,60 +164,60 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
-    font-size: 1rem;
-    color: #95a5a6;
+    font-size: 0.9rem;
+    color: #6c7b95;
 }
 
 .task-time {
     font-weight: 500;
-    font-size: 1.05rem;
 }
 
 .task-priority {
     display: inline-block;
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
     font-weight: 500;
     margin-left: 10px;
 }
 
 .priority-high {
-    background: lightcoral;
-    color: darkred;
+    background: rgba(255, 107, 107, 0.2);
+    color: #c53c3c;
 }
 
 .priority-medium {
-    background: lightgoldenrodyellow;
+    background: rgba(255, 193, 7, 0.2);
     color: #f39c12;
 }
 
 .priority-low {
-    background: lightgreen;
-    color: green;
+    background: rgba(76, 175, 80, 0.2);
+    color: #27ae60;
 }
+
 .task-tag {
     display: inline-block;
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
     font-weight: 500;
     margin-left: 10px;
 }
 
 .tag-home {
-    background: lightgray;
-    color: gray;
+    background: rgba(168, 192, 255, 0.2);
+    color: #3f4c6b;
 }
 
 .tag-work {
-    background: peachpuff;
-    color: peru;
+    background: rgba(255, 183, 77, 0.2);
+    color: #e67e22;
 }
 
 .tag-study {
-    background: lightpink;
-    color: purple;
+    background: rgba(186, 104, 200, 0.2);
+    color: #8e44ad;
 }
 
 .expand-icon {
@@ -239,85 +226,87 @@ body {
     top: 25px;
     transition: transform 0.3s ease;
     color: #a8c0ff;
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .task-item.expanded .expand-icon {
     transform: rotate(180deg);
 }
 
-/* Правая колонка - меню пользователя */
+/* управление */
 .menu-column {
     width: 300px;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(149, 157, 165, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
     padding: 30px;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .user-welcome {
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(200, 210, 220, 0.3);
 }
 
 .welcome-text {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', 'Segoe UI', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
     background: linear-gradient(135deg, #a8c0ff 0%, #3f4c6b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: 10px;
 }
 
 .user-login {
-    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', 'Segoe UI', sans-serif;
     font-style: italic;
-    color: #3f4c6b;
-    font-size: 1.3rem;
-    font-weight: 300;
+    color: #6c7b95;
+    font-size: 1.1rem;
 }
 
 .menu-buttons {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 30px;
 }
 
 .menu-btn {
     text-decoration: none;
     padding: 16px 20px;
-    border-radius: 12px;
-    font-size: 1.15rem;
+    border-radius: 15px;
+    font-size: 1rem;
     transition: all 0.3s ease;
     background: rgba(168, 192, 255, 0.1);
     color: #3f4c6b;
     display: flex;
     align-items: center;
     gap: 12px;
+    border: 1px solid rgba(168, 192, 255, 0.3);
 }
 
 .menu-btn:hover {
-    background: rgba(168, 192, 255, 0.3);
+    background: rgba(168, 192, 255, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(168, 192, 255, 0.2);
 }
 
 .menu-btn.active {
     background: linear-gradient(135deg, #a8c0ff 0%, #3f4c6b 100%);
     color: white;
+    border-color: transparent;
 }
 
+.no-url {
+    color: #95a5a6;
+    display: block;
+    padding: 8px 12px;
+    background: rgba(149, 165, 166, 0.1);
+    border-radius: 8px;
+}
+
+/* Анимации */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -339,13 +328,4 @@ body {
 
 .delay-2 {
     animation-delay: 0.2s;
-}
-
-.no-url {
-    color: #95a5a6;
-    display: block;
-    padding: 8px 12px;
-    font-ize: 1.1rem;
-    background: rgba(149, 165, 166, 0.1);
-    border-radius: 8px;
 }

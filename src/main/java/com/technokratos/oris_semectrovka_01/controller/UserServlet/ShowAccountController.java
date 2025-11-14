@@ -20,10 +20,11 @@ public class ShowAccountController extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User user = userService.getUser(request).get();
-
+        User user = userService.getUser((Long) request.getSession().getAttribute("id")).get();
+        if (user == null) {
+            request.setAttribute("error", "Не удалось найти пользователя");
+        }
         request.setAttribute("user", user);
-
 
         request.getRequestDispatcher("show-account.ftl").forward(request, response);
     }

@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 
@@ -13,7 +15,15 @@ import java.io.IOException;
 public class DeleteUserController extends HttpServlet {
     private UserService userService = new UserService();
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userService.delete(request);
+        String result = userService.delete((Long) request.getSession().getAttribute("id"));
+        if (result != null) {
+            request.setAttribute("error", result);
+        } else {
+            HttpSession session = request.getSession();
+            if (session != null) {
+                session.invalidate();
+            }
+        }
         request.getRequestDispatcher("/title-window.ftl").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

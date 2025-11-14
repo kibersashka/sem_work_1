@@ -13,7 +13,10 @@ import java.io.IOException;
 public class DeleteTaskController extends HttpServlet {
     private TaskService taskService = new TaskService();
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        taskService.deleteTask(request);
+        String result = taskService.deleteTask(Long.valueOf(request.getParameter("task_id")));
+        if (result != null) {
+            request.getSession().setAttribute("error", result);
+        }
         response.sendRedirect("/oris_semectrovka_01_war_exploded/index");
     }
 }

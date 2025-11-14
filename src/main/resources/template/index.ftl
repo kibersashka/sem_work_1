@@ -1,21 +1,23 @@
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
     <meta name="description" content="Личный кабинет - задачи на сегодня">
-    <link rel="stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/window.css">
-    <style>
+    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/hello-window.css">
 
-    </style>
 </head>
 <body>
-
+<script>
+    <#if error??>
+    alert('${error}')
+    </#if>
+</script>
 <div class="container">
-
     <div class="tasks-column fade-in">
         <h2 class="tasks-header">Задачи на сегодня</h2>
-
 
         <div class="tasks-list">
             <#if tasks?has_content>
@@ -26,28 +28,22 @@
                         <#if task.tags?has_content>
                             <#list task.tags as tag>
                                 <#if tag.name?? && tag.name != "">
-                                    <div class="task-title">
-                                        <span class="task-tag tag-<#if tag.id == 1>home<#elseif tag.id == 2>work<#else>study</#if>">
-                                            <#if tag.id == 1>Дом
-                                            <#elseif tag.id == 2>Работа
-                                            <#else>Учеба
-                                            </#if>
-                                        </span>
-                                    </div>
-                                <#else>
-                                    нет тега
+                                    <span class="task-tag tag-<#if tag.id == 1>home<#elseif tag.id == 2>work<#else>study</#if>">
+                                        <#if tag.id == 1>Дом
+                                        <#elseif tag.id == 2>Работа
+                                        <#else>Учеба
+                                        </#if>
+                                    </span>
                                 </#if>
-                                </li>
                             </#list>
                         </#if>
                         <div class="task-title">${task.title}
                             <span class="task-priority priority-<#if task.priority == 3>high<#elseif task.priority == 2>medium<#else>low</#if>">
-                        <#if task.priority == 3>Высокий
-                        <#elseif task.priority == 2>Средний
-                        <#else>Низкий
-                        </#if>
-                    </span>
-
+                                <#if task.priority == 3>Высокий
+                                <#elseif task.priority == 2>Средний
+                                <#else>Низкий
+                                </#if>
+                            </span>
                         </div>
                         <div class="task-preview">
                             ${task.description!''}
@@ -97,7 +93,6 @@
         </div>
     </div>
 
-    <!-- меню пользователя -->
     <div class="menu-column fade-in delay-1">
         <div class="user-welcome">
             <div class="welcome-text">Добро пожаловать!</div>
@@ -108,25 +103,19 @@
             <a href="showtask" class="menu-btn active">
                 <span>📅</span> Календарь задач
             </a>
-
             <a href="show-account" class="menu-btn">
                 <span>✏️</span> Настройки
             </a>
+            <a href="logout" class="menu-btn">
+                <span>️🌸</span> Выйти
+            </a>
+            <button class="menu-btn" onclick="refreshTasks()" style="border: none; background: inherit;">
+                <span>🔄</span> Обновить задачи
+            </button>
+
         </div>
     </div>
 </div>
-
-<script>
-    function toggleTask(element) {
-        const allTasks = document.querySelectorAll('.task-item');
-        allTasks.forEach(task => {
-            if (task !== element && task.classList.contains('expanded')) {
-                task.classList.remove('expanded');
-            }
-        });
-        element.classList.toggle('expanded');
-    }
-</script>
-
+<script src="/oris_semectrovka_01_war_exploded/static/js/index.js"></script>
 </body>
 </html>

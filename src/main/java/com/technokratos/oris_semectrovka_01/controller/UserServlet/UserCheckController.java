@@ -1,5 +1,6 @@
 package com.technokratos.oris_semectrovka_01.controller.UserServlet;
 
+import com.technokratos.oris_semectrovka_01.entity.Task;
 import com.technokratos.oris_semectrovka_01.entity.User;
 import com.technokratos.oris_semectrovka_01.service.TaskService;
 import com.technokratos.oris_semectrovka_01.service.UserService;
@@ -14,22 +15,23 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 
 @WebServlet("/usercheck")
 public class UserCheckController extends HttpServlet {
 
     private UserService userService  = new UserService();
-    private TaskService taskService = new TaskService();
+
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        request.getRequestDispatcher("/login.ftl").forward(request, response);
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String resource = getString(request);
-        request.getRequestDispatcher(resource).forward(request, response);
+        response.sendRedirect(request.getContextPath() + resource);
 
 
     }
@@ -37,7 +39,7 @@ public class UserCheckController extends HttpServlet {
     private String getString(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        String resource = "/login.ftl";
+        String resource = "/login";
 
         if(session == null || session.getAttribute("user") == null) {
 
@@ -45,34 +47,22 @@ public class UserCheckController extends HttpServlet {
 
             user.setLogin(request.getParameter("login"));
             user.setPassword(request.getParameter("password"));
-            user.setName(request.getParameter("name"));
-            user.setEmail(request.getParameter("email"));
+            session = request.getSession();
 
 
 
-            if(userService.loginUser(request)){
-                int year = LocalDate.now(ZoneId.systemDefault()).getYear();
-                System.out.println("тут");
 
-                int month =  LocalDate.now().getMonthValue() ;
-                int day = LocalDate.now().getDayOfMonth();
-                if (month < 1) { month = 12; year--; }
-                if (month > 12) { month = 1; year++; }
-
-                request.setAttribute("tasks", taskService.getAllTasksForUser(request, new Date(year - 1900, month - 1, day)));
-
-                System.out.println(request.getAttribute("tasks"));
+            if(userService.loginUser(user)){
+                session.setAttribute("id", user.getId());
                 session = request.getSession();
                 session.setAttribute("login", user.getLogin());
-                session.setAttribute("login", user.getLogin());
-                resource = "/index.ftl";
+                resource = "/index";
 
             } else {
-                //request.setAttribute("errorMessage", "Invalid username or password");
-                resource = "/login.ftl";
+                request.setAttribute("error", "Не удалось найти пользователя");
+                resource = "/login";
             }
         }
-
         return resource;
     }
 }

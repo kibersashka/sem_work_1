@@ -5,8 +5,6 @@ import com.technokratos.oris_semectrovka_01.connection.DBConnection;
 import com.technokratos.oris_semectrovka_01.entity.Attachments;
 import com.technokratos.oris_semectrovka_01.entity.Tag;
 import com.technokratos.oris_semectrovka_01.entity.Task;
-import org.apache.logging.log4j.core.util.JsonUtils;
-import org.springframework.security.access.method.P;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -56,14 +54,6 @@ public class TaskDAOImpl implements TaskDAO {
             int res1 = preparedStatement1.executeUpdate();
             preparedStatement1.close();
 
-        System.out.println();
-        System.out.println(attachment);
-        System.out.println("_---------------------------");
-
-
-
-
-
             for (Attachments attachments : attachment) {
 
                 //получиться айдишник вложения из последовательности
@@ -104,7 +94,6 @@ public class TaskDAOImpl implements TaskDAO {
                 System.out.println();
             }
 
-        System.out.println("TAG__________________" + tags);
             for (Tag tag : tags) {
                 //редактирование тега
 
@@ -118,18 +107,11 @@ public class TaskDAOImpl implements TaskDAO {
 
                     System.out.println("вставка тега " + res6);
 
-
-
             }
-
-
-
 
             connection.commit();
             connection.close();
 
-            System.out.println("Added task with id " + task_id);
-            System.out.println(task);
     }
 
     //обновление задачи ее полей!! не вложения
@@ -196,14 +178,7 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println(tag.getId());
 
             if (resultSet3.next() && resultSet3.getLong("task_id") == task.getId() && resultSet3.getLong("tag_id") == tag.getId()) {
-                System.out.println("TRUE++++++++++++++++++++");
-                String sql2 = "update task_tag set tag_id = ? where task_id = ?";
-                PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
-                System.out.println("Adding tag with id " + tag.getId());
-                preparedStatement2.setLong(1, tag.getId());
-                preparedStatement2.setLong(2, task.getId());
-                int res2 = preparedStatement2.executeUpdate();
-                preparedStatement2.close();
+                System.out.println("TRUE++++++++++++++++");
 
 
             } else {
@@ -260,7 +235,7 @@ public class TaskDAOImpl implements TaskDAO {
             task.setDate_end(resultSet.getDate("date_end"));
             task.setPriority(resultSet.getInt("priority"));
             task.setStatus(resultSet.getString("status"));
-            task.setAttachments(getAttachment(resultSet.getLong("users_id"), resultSet.getLong("id")));
+            task.setAttachments(getAttachments(resultSet.getLong("users_id"), resultSet.getLong("id")));
 
 
             preparedStatement.close();
@@ -281,7 +256,7 @@ public class TaskDAOImpl implements TaskDAO {
     }
     //все задачи!! без вложений у юзера
 
-    public List<Task> getTasksForUser(Long user_id, Date date_create) throws SQLException {
+    public List<Task> getAllTasks(Long user_id, Date date_create) throws SQLException {
         String sql = "SELECT\n" +
                 "    t.id,\n" +
                 "    t.users_id,\n" +
@@ -314,9 +289,9 @@ public class TaskDAOImpl implements TaskDAO {
             task.setDate_end(resultSet.getDate("date_end"));
             task.setPriority(resultSet.getInt("priority"));
             task.setStatus(resultSet.getString("status"));
-            task.setAttachments(getAttachment(resultSet.getLong("users_id"), resultSet.getLong("id")));
+            task.setAttachments(getAttachments(resultSet.getLong("users_id"), resultSet.getLong("id")));
             System.out.println(task.getAttachments() + "getTasksForUser");
-            task.setTags(getTag(resultSet.getLong("id")));
+            task.setTags(getTags(resultSet.getLong("id")));
             System.out.println(task.getTags() + "getTasksForUser");
             tasks.add(task);
         }
@@ -329,7 +304,7 @@ public class TaskDAOImpl implements TaskDAO {
         return tasks;
     }
 
-    public List<Attachments> getAttachment(Long user_id, Long task_id) throws SQLException {
+    public List<Attachments> getAttachments(Long user_id, Long task_id) throws SQLException {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
 
@@ -365,51 +340,8 @@ public class TaskDAOImpl implements TaskDAO {
 
     }
 
-    /*
-    public void updateAttachment(Long user_id, Long task_id) throws SQLException {
-        String sql = "";
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-        connection.commit();
-        connection.close();
-    }
-
-
-    public void deleteAttachment(Long user_id, Long task_id) throws SQLException {
-        String sql = "delete from attachment where id = ?";
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, attachment.getId());
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-        connection.commit();
-        connection.close();
-    }
-     */
-
-    public Long getAttachmentOrElse(String url) throws SQLException {
-        String sql = "select id from attachment where url = ?";
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, url);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        //System.out.println("getAttachmentOrElse" + resultSet.getLong("id"));
-        if (resultSet.next()) {
-            System.out.println("getAttachmentOrElse" + resultSet.getLong("id"));
-            return resultSet.getLong("id");
-        }
-        System.out.println("getAttachmentOrElse" + resultSet.getLong("id"));
-        return null;
-
-    }
-
-    public List<Tag> getTag(Long task_id) throws SQLException {
+    public List<Tag> getTags(Long task_id) throws SQLException {
         String sql = "select id, name from task_tag tt join tag on tag.id = tt.tag_id where tt.task_id = ?\n";
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -434,5 +366,5 @@ public class TaskDAOImpl implements TaskDAO {
 
 
 
-    //TODO репозиторий такс атачмент
+    //TODO вынести в отдельный репозиторяи два последних можета
 }

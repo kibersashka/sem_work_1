@@ -4,6 +4,7 @@ import com.technokratos.oris_semectrovka_01.DAO.methods.UserDAO;
 import com.technokratos.oris_semectrovka_01.connection.DBConnection;
 import com.technokratos.oris_semectrovka_01.entity.Task;
 import com.technokratos.oris_semectrovka_01.entity.User;
+import org.apache.logging.log4j.core.util.JsonUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,7 +83,7 @@ public class UserDAOImpl implements UserDAO {
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getEmail());
         preparedStatement.setString(4, user.getLogin());
-        System.out.println(preparedStatement);
+        System.out.println(user);
 
 
         int resultSet = preparedStatement.executeUpdate();
@@ -91,27 +92,10 @@ public class UserDAOImpl implements UserDAO {
 
         connection.commit();
         connection.close();
+
 
         return resultSet > 0;
     }
-/*
-    @Override
-    public void delete(User user) throws SQLException {
-        String sql = "delete from users where login = ? and password = ?";
-
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, user.getLogin());
-        preparedStatement.setString(2, user.getPassword());
-        int resultSet = preparedStatement.executeUpdate();
-        preparedStatement.close();
-        connection.commit();
-        connection.close();
-    }
-
- */
 
     @Override
     public Optional<User> find(User user) throws SQLException {
@@ -119,10 +103,11 @@ public class UserDAOImpl implements UserDAO {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
 
-        String sql = "SELECT * FROM users WHERE login = ? ";
+        String sql = "SELECT * FROM users WHERE login = ? and password = ? ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user.getLogin());
+        preparedStatement.setString(2, user.getPassword());
 
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -135,7 +120,13 @@ public class UserDAOImpl implements UserDAO {
             userEntity.setPassword(resultSet.getString("password"));
             userEntity.setName(resultSet.getString("name"));
             userEntity.setEmail(resultSet.getString("email"));
+            preparedStatement.close();
+            resultSet.close();
+
+            connection.commit();
+            connection.close();
             return Optional.of(userEntity);
+
         }
 
         preparedStatement.close();
@@ -238,6 +229,47 @@ public class UserDAOImpl implements UserDAO {
         connection.commit();
         connection.close();
         return  Optional.empty();
+    }
+
+
+    public Optional<User> findBuLogin(User user) throws SQLException {
+
+        Connection connection = DBConnection.getConnection();
+        connection.setAutoCommit(false);
+
+        String sql = "SELECT * FROM users WHERE login = ? ";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, user.getLogin());
+
+
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+
+        if(resultSet.next()) {
+            User userEntity = new User();
+            userEntity.setId(resultSet.getLong("id"));
+            userEntity.setLogin(resultSet.getString("login"));
+            userEntity.setPassword(resultSet.getString("password"));
+            userEntity.setName(resultSet.getString("name"));
+            userEntity.setEmail(resultSet.getString("email"));
+            preparedStatement.close();
+            resultSet.close();
+
+            connection.commit();
+            connection.close();
+            return Optional.of(userEntity);
+
+        }
+
+        preparedStatement.close();
+        resultSet.close();
+
+        connection.commit();
+        connection.close();
+
+        return Optional.empty();
     }
 
 

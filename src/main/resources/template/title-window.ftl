@@ -5,254 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Календарь</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: #1d1d1f;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.06) 0%, transparent 50%);
-            z-index: -1;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
-        }
+    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/open-user-window.css">
 
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            color: #1d1d1f;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            color: #86868b;
-            font-weight: 400;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 16px 42px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.25);
-            border: none;
-            cursor: pointer;
-            letter-spacing: -0.2px;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.35);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #86868b;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-8px) translateX(-50%); }
-            60% { transform: translateY(-4px) translateX(-50%); }
-        }
-
-        /* Sections */
-        .section {
-            min-height: 100vh;
-            padding: 120px 0;
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section:nth-child(even) {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-        }
-
-
-        .section-text {
-            flex: 1;
-        }
-
-
-
-        h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1.8rem;
-            font-weight: 700;
-            color: #1d1d1f;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            margin-bottom: 1.8rem;
-            color: #515154;
-            font-weight: 400;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 35px 25px;
-            border-radius: 18px;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        .feature:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature i {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #0066cc, #007AFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .feature h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: #1d1d1f;
-            font-weight: 600;
-        }
-
-        .feature p {
-            font-size: 1.1rem;
-            color: #515154;
-            margin-bottom: 0;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-
-        footer p {
-            color: #86868b;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .section-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            h1 {
-                font-size: 2.8rem;
-            }
-
-            h2 {
-                font-size: 2.2rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-
-        }
-
-        /* Apple-like refinements */
-        .section-text h2 {
-            background: linear-gradient(135deg, #1d1d1f, #0066cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero h1 {
-            background: linear-gradient(135deg, #1d1d1f, #0066cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </head>
 <body>
 <!-- Hero Section -->
@@ -310,8 +65,9 @@
     </div>
 </footer>
 
-<script>
-    // Анимация появления секций при скролле
+
+<script >
+    // анимация появления секций при скролле
     document.addEventListener('DOMContentLoaded', function() {
         const sections = document.querySelectorAll('.section');
 
@@ -322,6 +78,7 @@
                 }
             });
         }, {
+//кому видно тому стыдно
             threshold: 0.1
         });
 
@@ -330,5 +87,6 @@
         });
     });
 </script>
+
 </body>
 </html>
