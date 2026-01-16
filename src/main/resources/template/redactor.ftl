@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Изменение страницы</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/login-reg.css">
+    <link rel = "stylesheet" href="${contextPath}/static/css/login-reg.css">
 
 </head>
 <body>
@@ -16,7 +16,7 @@
     </#if>
 </script>
 <div class="container">
-    <form action="/oris_semectrovka_01_war_exploded/redactor" method="post">
+    <form action="${contextPath}/redactor" method="post">
         <h2>Изменение пользователя</h2>
 
         <div class="form-group">

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
     <meta name="description" content="Личный кабинет - задачи на сегодня">
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/hello-window.css">
+    <link rel = "stylesheet" href="${contextPath}/static/css/hello-window.css">
 
 </head>
 <body>
@@ -23,7 +23,7 @@
             <#if tasks?has_content>
                 <#list tasks as task>
                     <div class="task-item fade-in <#if task_index % 2 == 0>delay-1<#else>delay-2</#if>"
-                         onclick="toggleTask(this)">
+                         onclick="oneTask(this)">
                         <div class="expand-icon">▼</div>
                         <#if task.tags?has_content>
                             <#list task.tags as tag>
@@ -116,6 +116,6 @@
         </div>
     </div>
 </div>
-<script src="/oris_semectrovka_01_war_exploded/static/js/index.js"></script>
+<script src="${contextPath}/static/js/index.js"></script>
 </body>
 </html>

@@ -1,9 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
-    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3vw;
 }
 
 .header { text-align: center; margin-bottom: 40px; }
@@ -26,23 +28,34 @@ body {
 .container {
     display: flex;
     gap: 40px;
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 auto;
     width: 95%;
 }
 
 .calendar {
-    flex: 1.2;
-    background: white;
-    border-radius: 15px;
-    padding: 35px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    min-width: 800px;
+    width: 90%;
+    max-width: 1000px;
+    border-collapse: separate;
+    border-spacing: 0.6vw;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.5vw;
+    padding: 1.5vw;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .calendar table {
-    width: 100%;
+    width: 90%;
+    max-width: 1000px;
     border-collapse: separate;
-    border-spacing: 8px;
+    border-spacing: 0.6vw;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.5vw;
+    padding: 1.5vw;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .calendar th {
     background: linear-gradient(135deg, #a8c0ff, #3f4c6b);
@@ -80,7 +93,7 @@ body {
     border-radius: 15px;
     padding: 35px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    min-width: 600px;
+    min-width: 500px;
 }
 .tasks-header {
     display: flex;
@@ -161,4 +174,7 @@ body {
     color: #5d6d7e;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     font-size: 17px;
+}
+.calendarContainer {
+    display: flex;
 }

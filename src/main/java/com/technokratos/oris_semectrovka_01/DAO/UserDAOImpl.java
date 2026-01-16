@@ -25,13 +25,13 @@ import java.util.Optional;
 public class UserDAOImpl implements UserDAO {
 
 
-    @Override
+
     public void save(User user) throws SQLException {
         //добавляется !!
 
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
-        System.out.println("save user000000");
+
 
         String sql = "INSERT INTO users (id, login, password, name, email) VALUES (?, ?, ?, ?, ?)";
 
@@ -51,19 +51,18 @@ public class UserDAOImpl implements UserDAO {
 
             throw new SQLException("not add user");
         }
-        System.out.println(user);
+
         resultSet.close();
         preparedStatement.close();
 
         PreparedStatement preparedStatement1 = connection.prepareStatement(sql);
         //вставка данных в sql
         insertDataOfUserInSqlParametrs(user, preparedStatement1);
-        System.out.println("nnnnn");
 
         int resultSet1 = preparedStatement1.executeUpdate();
-        System.out.println(resultSet1 > 0);
+
         preparedStatement1.close();
-        System.out.println(resultSet1);
+
 
 
         connection.commit();
@@ -71,7 +70,6 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    @Override
     public boolean update(User user) throws SQLException {
 
         Connection connection = DBConnection.getConnection();
@@ -83,7 +81,7 @@ public class UserDAOImpl implements UserDAO {
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getEmail());
         preparedStatement.setString(4, user.getLogin());
-        System.out.println(user);
+
 
 
         int resultSet = preparedStatement.executeUpdate();
@@ -97,80 +95,6 @@ public class UserDAOImpl implements UserDAO {
         return resultSet > 0;
     }
 
-    @Override
-    public Optional<User> find(User user) throws SQLException {
-
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-
-        String sql = "SELECT * FROM users WHERE login = ? and password = ? ";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, user.getLogin());
-        preparedStatement.setString(2, user.getPassword());
-
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-
-        if(resultSet.next()) {
-            User userEntity = new User();
-            userEntity.setId(resultSet.getLong("id"));
-            userEntity.setLogin(resultSet.getString("login"));
-            userEntity.setPassword(resultSet.getString("password"));
-            userEntity.setName(resultSet.getString("name"));
-            userEntity.setEmail(resultSet.getString("email"));
-            preparedStatement.close();
-            resultSet.close();
-
-            connection.commit();
-            connection.close();
-            return Optional.of(userEntity);
-
-        }
-
-        preparedStatement.close();
-        resultSet.close();
-
-        connection.commit();
-        connection.close();
-
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Task> findAllTaskForUser(User user) throws SQLException {
-        String sql = "select title,\n" +
-                "       description,\n" +
-                "       date_create,\n" +
-                "       date_end,\n" +
-                "       priority,\n" +
-                "       status\n" +
-                "from task t\n" +
-                "join users u on t.users_id = u.id\n" +
-                "join task_attachment ta on t.id = ta.task_id;";
-        Connection connection = DBConnection.getConnection();
-        connection.setAutoCommit(false);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<Task> tasks = new ArrayList<>();
-        while (resultSet.next()) {
-            Task task = new Task();
-            task.setTitle(resultSet.getString("title"));
-            task.setDescription(resultSet.getString("description"));
-            task.setDate_create(resultSet.getDate("date_create"));
-            task.setDate_end(resultSet.getDate("date_end"));
-            task.setPriority(resultSet.getInt("priority"));
-            task.setStatus(resultSet.getString("status"));
-            tasks.add(task);
-        }
-        preparedStatement.close();
-        resultSet.close();
-        connection.commit();
-        connection.close();
-
-        return tasks;
-    }
 
     private static void insertDataOfUserInSqlParametrs(User user, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setLong(1, user.getId());

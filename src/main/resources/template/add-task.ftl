@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавление задачи</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/add-edit-task.css">
+    <link rel = "stylesheet" href="${contextPath}/static/css/add-edit-task.css">
 </head>
 <body>
 <script>
@@ -15,7 +13,7 @@
     </#if>
 </script>
 <div class="container">
-    <form action="/oris_semectrovka_01_war_exploded/add-task" method="post" onsubmit="return validateForm()">
+    <form action="${contextPath}/add-task" method="post">
         <h2>Добавление задачи</h2>
 
         <div class="form-group">
@@ -100,10 +98,10 @@
 
     <div class="back-link">
         <p>Вернуться обратно?</p>
-        <a href="/oris_semectrovka_01_war_exploded/showtask" class="back-btn">К календарю</a>
+        <a href="${contextPath}/showtask" class="back-btn">К календарю</a>
     </div>
 </div>
-<script src="/oris_semectrovka_01_war_exploded/static/js/task.js"></script>
+<script src="${contextPath}/static/js/task.js"></script>
 
 </body>
 </html>

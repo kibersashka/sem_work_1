@@ -3,13 +3,11 @@ package com.technokratos.oris_semectrovka_01.controller.WindowServlet;
 import com.technokratos.oris_semectrovka_01.controller.TaskServlet.Util.GenerateDateUtil;
 import com.technokratos.oris_semectrovka_01.entity.Task;
 import com.technokratos.oris_semectrovka_01.service.TaskService;
-import com.technokratos.oris_semectrovka_01.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -27,7 +25,6 @@ public class IndexController extends HttpServlet {
             request.getSession().removeAttribute("error");
         }
         int year = LocalDate.now(ZoneId.systemDefault()).getYear();
-
         int month =  LocalDate.now().getMonthValue() ;
         int day = LocalDate.now().getDayOfMonth();
         if (month < 1) { month = 12; year--; }
@@ -40,9 +37,11 @@ public class IndexController extends HttpServlet {
         } else {
             request.setAttribute("tasks", tasks);
         }
+        request.setAttribute("contextPath", request.getContextPath());
 
         request.getRequestDispatcher("/index.ftl").forward(request, response);
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//TODO status with chouse
 
-//todo сделать надо через трай кетч!!
 public class TaskDAOImpl implements TaskDAO {
 
 
@@ -22,7 +20,7 @@ public class TaskDAOImpl implements TaskDAO {
             String sql = "select id from nextval('seq_task') as id";
             Connection connection = DBConnection.getConnection();
             connection.setAutoCommit(false);
-            System.out.println(task.getId() + " " + task.getDate_create());
+            
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -34,9 +32,6 @@ public class TaskDAOImpl implements TaskDAO {
             }
             preparedStatement.close();
             resultSet.close();
-
-
-            System.out.println("Adding task with id " + task_id);
 
             //вставитьь новую задачу - то что ожидается от метода
             String sql1 = "insert into task values(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -178,7 +173,7 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println(tag.getId());
 
             if (resultSet3.next() && resultSet3.getLong("task_id") == task.getId() && resultSet3.getLong("tag_id") == tag.getId()) {
-                System.out.println("TRUE++++++++++++++++");
+                
 
 
             } else {

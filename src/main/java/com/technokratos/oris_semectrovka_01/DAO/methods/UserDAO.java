@@ -16,10 +16,10 @@ import java.util.Optional;
  *
  */
 public interface UserDAO {
-    void save(User user) throws SQLException;
+    Optional<User> findBuLogin(User user) throws SQLException;
+    Optional<User> findById(Long user_id) throws SQLException;
+    void delete(Long user_id) throws SQLException;
     boolean update(User user) throws SQLException;
-    //void delete(User user) throws SQLException;
-    Optional<User> find(User user) throws SQLException;
-    List<Task> findAllTaskForUser(User user) throws SQLException;
+    void save(User user) throws SQLException;
 
 }

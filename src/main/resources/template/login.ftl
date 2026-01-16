@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход в систему</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/login-reg.css">
+    <link rel = "stylesheet" href="${contextPath}/static/css/login-reg.css">
 
 </head>
 <body>
 
 <div class="container">
-    <form action="/oris_semectrovka_01_war_exploded/usercheck" method="post">
+    <form action="${contextPath}/usercheck" method="post">
         <h2>Вход в систему</h2>
 
         <div class="form-group">
@@ -37,7 +37,7 @@
 
     <div class="register-link">
         <p>Нет аккаунта?</p>
-        <a href="/oris_semectrovka_01_war_exploded/registration" class="register-btn">Зарегистрироваться</a>
+        <a href="${contextPath}/registration" class="register-btn">Зарегистрироваться</a>
     </div>
 </div>
 

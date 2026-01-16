@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Календарь</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/calendar.css">
+    <link rel="stylesheet" href="${contextPath}/static/css/calendar.css">
 
 </head>
 <body>
@@ -41,7 +41,7 @@
             <#list week as day>
                 <td>
                     <#if day??>
-                        <a href="/oris_semectrovka_01_war_exploded/showtaskOnDate?year=${year}&month=${month}&day=${day}">${day}</a>
+                        <a href="${contextPath}/showtaskOnDate?year=${year}&month=${month}&day=${day}">${day}</a>
                     <#else>
                         &nbsp;
                     </#if>

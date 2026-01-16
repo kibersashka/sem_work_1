@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование задачи</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/add-edit-task.css">
+    <link rel = "stylesheet" href="/${contextPath}/static/css/add-edit-task.css">
 </head>
 <body>
 
@@ -17,14 +17,15 @@
 </script>
 
 <div class="container">
-    <form action="/oris_semectrovka_01_war_exploded/edit-task?task_id=${task.id}" method="post" onsubmit="return validateForm()">        <input type="hidden" name="id" value="${task.id}">
+    <form action="${contextPath}/edit-task?task_id=${task.id}" method="post" >
+    <input type="hidden" name="id" value="${task.id}">
         <input type="hidden" name="users_id" value="${task.users_id}">
 
         <h2>Редактирование задачи</h2>
 
         <div class="form-group">
             <label for="title">Название задачи:</label>
-            <input type="text" id="title" name="title" value="${task.title}" required placeholder="Введите название задачи">
+            <input type="text" id="title" name="title" value="${task.title}" required placeholder="Введите название задачи" maxlength="150">
         </div>
 
         <div class="form-group">
@@ -95,7 +96,7 @@
             </small>
         </div>
 
-        <!-- Вложения -->
+
         <div class="form-group">
             <label>Вложения (ссылки):</label>
             <div class="attachments-container" id="attachmentsContainer">
@@ -103,7 +104,7 @@
                     <#list task.attachments as attachment>
                         <div class="attachment-item">
                             <input type="url" name="attachment_url" value="${attachment.url!''}"
-                                   placeholder="https://example.com/document.pdf" class="attachment-input">
+                                   placeholder="https://example.com/document.pdf" class="attachment-input" maxlength="500">
                             <input type="text" name="attachmentTitle" value="${attachment.title!''}"
                                    placeholder="Описание вложения" class="attachment-desc">
                             <span class="remove-attachment" onclick="removeAttachment(this)">×</span>
@@ -134,11 +135,11 @@
 
     <div class="back-link">
         <p>Вернуться обратно?</p>
-        <a href="/oris_semectrovka_01_war_exploded/showtask" class="back-btn">К календарю</a>
+        <a href="${contextPath}/showtask" class="back-btn">К календарю</a>
     </div>
 </div>
 
-<script src="/oris_semectrovka_01_war_exploded/static/js/task.js"></script>
+<script src="/${contextPath}/static/js/task.js"></script>
 
 </body>
 </html>

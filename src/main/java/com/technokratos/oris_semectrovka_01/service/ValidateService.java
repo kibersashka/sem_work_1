@@ -5,7 +5,7 @@ import com.technokratos.oris_semectrovka_01.entity.User;
 
 public class ValidateService {
     public static String getValidDate(Task task) {
-        System.out.println("YASLLLSLSL" + task);
+
         if(task.getDate_end().before(task.getDate_create())) {
             return "Дата окончания раньше даты создания!";
         }
@@ -13,8 +13,7 @@ public class ValidateService {
     }
 
     public static String getValidPassword(User user) {
-        if (user.getLogin().length() < 7) {
-
+        if (user.getPassword().length() < 5) {
             return "Пароль слишком короткий!";
         }
         return null;

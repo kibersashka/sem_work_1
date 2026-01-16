@@ -1,4 +1,4 @@
-function toggleTask(element) {
+function oneTask(element) {
     const allTasks = document.querySelectorAll('.task-item');
     allTasks.forEach(task => {
         if (task !== element && task.classList.contains('expanded')) {

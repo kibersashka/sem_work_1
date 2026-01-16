@@ -25,7 +25,6 @@ public class UserService {
 
         try {
             if (userDAO.findBuLogin(user).isEmpty()) {
-                System.out.println("User not found");
                 userDAO.save(user);
                 return Optional.of(user);
             }

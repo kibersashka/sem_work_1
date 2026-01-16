@@ -22,7 +22,7 @@ body {
     padding: 0 20px;
 }
 
-/* Hero Section */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -107,7 +107,6 @@ h1 {
     60% { transform: translateY(-4px) translateX(-50%); }
 }
 
-/* Sections */
 .section {
     min-height: 100vh;
     padding: 120px 0;
@@ -195,7 +194,7 @@ p {
     margin-bottom: 0;
 }
 
-/* Footer */
+
 footer {
     text-align: center;
     padding: 60px 0;
@@ -210,7 +209,7 @@ footer p {
     margin-bottom: 10px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .section-content {
         flex-direction: column;
@@ -232,7 +231,6 @@ footer p {
 
 }
 
-/* Apple-like refinements */
 .section-text h2 {
     background: linear-gradient(135deg, #1d1d1f, #0066cc);
     -webkit-background-clip: text;

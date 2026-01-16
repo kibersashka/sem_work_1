@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Календарь</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/open-user-window.css">
+    <link rel="stylesheet" href="${contextPath}/static/css/open-user-window.css">
+
 
 
 </head>
 <body>
-<!-- Hero Section -->
+
 <section class="hero">
     <div class="hero-content">
         <h1>Добро пожаловать в календарь!</h1>
         <p class="subtitle">Платформа для записей важных дел!</p>
-        <a href="/oris_semectrovka_01_war_exploded/login" class="btn">Начать сейчас</a>
+        <a href="${contextPath}/login" class="btn">Начать сейчас</a>
     </div>
     <div class="scroll-indicator">
         <span>Листайте вниз</span>
@@ -23,7 +24,6 @@
     </div>
 </section>
 
-<!-- Section 3 -->
 <section class="section" id="section3">
     <div class="container">
         <div class="section-text">
@@ -56,7 +56,6 @@
     </div>
 </section>
 
-<!-- Footer -->
 <footer>
     <div class="container">
 
@@ -67,7 +66,7 @@
 
 
 <script >
-    // анимация появления секций при скролле
+
     document.addEventListener('DOMContentLoaded', function() {
         const sections = document.querySelectorAll('.section');
 
@@ -77,9 +76,7 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, {
-//кому видно тому стыдно
-            threshold: 0.1
+        }, {threshold: 0.1
         });
 
         sections.forEach(section => {

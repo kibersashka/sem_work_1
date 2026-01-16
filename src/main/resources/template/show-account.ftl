@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Управление профилем</title>
-    <link rel = "stylesheet" href="/oris_semectrovka_01_war_exploded/static/css/account.css">
+    <link rel = "stylesheet" href="${contextPath}/static/css/account.css">
 
 </head>
 <body>
@@ -39,11 +39,11 @@
 
     <!-- Кнопки действий -->
     <div class="actions-container">
-        <a href="/oris_semectrovka_01_war_exploded/redactor" class="action-btn edit-btn">
+        <a href="${contextPath}/redactor" class="action-btn edit-btn">
             <span>✏️</span>
             Редактировать
         </a>
-        <a href="/oris_semectrovka_01_war_exploded/delete-user" class="action-btn delete-btn"
+        <a href="${contextPath}/delete-user" class="action-btn delete-btn"
            onclick="return confirm('Вы точно хотите удалить этот аккаунт?')">
             <span>🗑️</span>
             Удалить
@@ -51,7 +51,7 @@
     </div>
 
     <div class="back-link">
-        <a href="/oris_semectrovka_01_war_exploded/showtask" class="back-btn">Назад к календарю</a>
+        <a href="${contextPath}/showtask" class="back-btn">Назад к календарю</a>
     </div>
 </div>
 

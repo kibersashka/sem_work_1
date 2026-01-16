@@ -1,5 +1,4 @@
 /* добавление/редактирование задачи */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 * {
     margin: 0;
@@ -149,7 +148,7 @@ h2 {
     color: white;
 }
 
-/* для вложений */
+/*  для вложений */
 .attachments-container {
     margin-top: 10px;
 }
@@ -230,3 +229,18 @@ h2 {
     box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2) !important;
 }
 
+@media (max-width: 500px) {
+    .container {
+        padding: 30px 20px;
+    }
+    .tag-item,
+    .attachment-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .tag-select,
+    .attachment-input,
+    .attachment-desc {
+        width: 100%;
+    }
+}
