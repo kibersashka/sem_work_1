@@ -135,7 +135,7 @@ buildNumber.properties
 .classpath
 mvnw
 mvnw.cmd
-
+.mvn/wrapper/
 
 
 
