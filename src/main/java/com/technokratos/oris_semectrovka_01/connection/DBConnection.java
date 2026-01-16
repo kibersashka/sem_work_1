@@ -9,17 +9,17 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static DataSource dataSourse;
+    private static final PropertiesLoader propsLoader =  new PropertiesLoader();
 
     public static void init() throws ClassNotFoundException{
         Class.forName("org.postgresql.Driver");
 
         HikariConfig config = new HikariConfig();
-
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/TaskTrecer");
-        config.setUsername("postgres");
-        config.setPassword("password");
-        config.setConnectionTimeout(10000);
-        config.setMaximumPoolSize(5);
+        System.out.println(propsLoader.getProperty("database.url"));
+        config.setJdbcUrl(propsLoader.getProperty("database.url"));
+        config.setUsername(propsLoader.getProperty("database.username"));
+        config.setPassword(propsLoader.getProperty("database.password"));
+        config.setMaximumPoolSize(Integer.parseInt(propsLoader.getProperty("hikari.poolsize")));
 
         dataSourse = new HikariDataSource(config);
     }

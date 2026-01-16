@@ -24,11 +24,13 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
+        if (((HttpServletRequest) request).getRequestURI().startsWith(((HttpServletRequest) request).getContextPath() + "/static/")) {
+            chain.doFilter(request, response);
+            return;
+        }
         if (! checkE(((HttpServletRequest) request).getServletPath()) && (session == null ||
                 session.getAttribute("login") == null)) {
-            System.out.println();
-
-            ((HttpServletResponse) response).sendRedirect("/oris_semectrovka_01_war_exploded/login");
+            ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "login");
 
         } else {
             chain.doFilter(request, response);
