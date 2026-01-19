@@ -21,7 +21,7 @@ public class RegistrationController extends HttpServlet {
         if (request.getSession() == null) {
             request.getSession().invalidate();
         }
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -46,7 +46,7 @@ public class RegistrationController extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = getUser(request);
         request.setAttribute("contextPath", request.getContextPath());
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
         HttpSession session = request.getSession();
 

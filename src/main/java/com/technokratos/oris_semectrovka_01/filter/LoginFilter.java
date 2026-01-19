@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
         }
         if (! checkE(((HttpServletRequest) request).getServletPath()) && (session == null ||
                 session.getAttribute("login") == null)) {
-            ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "login");
+            ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login");
 
         } else {
             chain.doFilter(request, response);
